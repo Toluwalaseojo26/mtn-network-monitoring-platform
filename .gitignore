@@ -32,3 +32,6 @@ override.tf.json
 .idea/
 .DS_Store
 Thumbs.db
+
+# Editor backup files
+*.save
