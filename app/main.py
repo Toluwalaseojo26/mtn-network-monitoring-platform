@@ -1,5 +1,7 @@
 
 from fastapi import FastAPI
+
+from app.event_queue import enqueue_event
 from app.models import NetworkEvent
 
 app = FastAPI(
@@ -27,7 +29,11 @@ def health_check():
 
 @app.post("/events", status_code=201)
 def receive_event(event: NetworkEvent):
+    enqueue_event(event)
+
     return {
-        "message": "Network event received successfully",
+        "message": "Network event received and queued successfully",
         "event": event.model_dump(mode="json"),
+        "queue_status": "queued",
     }
+

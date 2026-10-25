@@ -1,6 +1,6 @@
 from fastapi.testclient import TestClient
-
 from app.main import app
+from app.event_queue import event_queue
 
 client = TestClient(app)
 
@@ -19,7 +19,12 @@ def test_health_endpoint():
     assert response.json()["status"] == "healthy"
 
 
+
 def test_receive_valid_event():
+    # Clear leftover events so this test starts clean.
+    while not event_queue.empty():
+        event_queue.get_nowait()
+
     event = {
         "event_id": "EVT-001",
         "event_type": "dropped_call",
@@ -32,6 +37,11 @@ def test_receive_valid_event():
 
     assert response.status_code == 201
     assert response.json()["event"]["event_id"] == "EVT-001"
+    assert response.json()["queue_status"] == "queued"
+    assert not event_queue.empty()
+
+    queued_event = event_queue.get_nowait()
+    assert queued_event.event_id == "EVT-001"
 
 
 def test_reject_invalid_event_type():
