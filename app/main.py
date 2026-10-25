@@ -1,0 +1,33 @@
+
+from fastapi import FastAPI
+from app.models import NetworkEvent
+
+app = FastAPI(
+    title="MTN Network Monitoring & Customer Alert Platform",
+    description="An educational simulation for monitoring network events.",
+    version="0.1.0",
+)
+
+
+@app.get("/")
+def home():
+    return {
+        "message": "Network Monitoring Platform API is running",
+        "status": "online",
+    }
+
+
+@app.get("/health")
+def health_check():
+    return {
+        "status": "healthy",
+        "service": "network-monitoring-api",
+    }
+
+
+@app.post("/events", status_code=201)
+def receive_event(event: NetworkEvent):
+    return {
+        "message": "Network event received successfully",
+        "event": event.model_dump(mode="json"),
+    }
