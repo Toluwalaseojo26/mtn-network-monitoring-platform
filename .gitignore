@@ -35,3 +35,6 @@ Thumbs.db
 
 # Editor backup files
 *.save
+
+# Generated application data
+data/
