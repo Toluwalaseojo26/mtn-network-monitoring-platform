@@ -74,6 +74,11 @@ The following screenshots demonstrate the application's API, AWS infrastructure,
 
 ![Pytest Results](docs/screenshots/07-pytest-results.png)
 
+
+### GitHub Actions CI Pipeline
+
+![GitHub Actions CI Pipeline](docs/screenshots/08-github-actions-ci.png)
+
 ## 5. Technologies Used
 
 | Technology | Purpose |
