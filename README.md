@@ -42,8 +42,39 @@ flowchart TD
     I --> J[Alert Storage]
     E -. Redrive after failed processing .-> K[Dead-Letter Queue]
 ```
+## 4. Project Demonstration
 
-## 4. Technologies Used
+The following screenshots demonstrate the application's API, AWS infrastructure, event processing workflow, infrastructure validation, and automated testing.
+
+### FastAPI Documentation
+
+![FastAPI Documentation](docs/screenshots/01-fastapi-docs.png)
+
+### Event Ingestion
+
+![Event Ingestion](docs/screenshots/02-event-ingestion.png)
+
+### Amazon SQS Queues
+
+![Amazon SQS Queues](docs/screenshots/03-sqs-queues.png)
+
+### Worker Processing
+
+![Worker Processing](docs/screenshots/04-worker-processing.png)
+
+### Queue After Processing
+
+![SQS Queue Cleared](docs/screenshots/05-sqs-queue-cleared.png)
+
+### Terraform Validation
+
+![Terraform Validation](docs/screenshots/06-terraform-validation.png)
+
+### Automated Test Results
+
+![Pytest Results](docs/screenshots/07-pytest-results.png)
+
+## 5. Technologies Used
 
 | Technology | Purpose |
 |---|---|
@@ -57,7 +88,7 @@ flowchart TD
 | Pytest | Automated testing |
 | Git and GitHub | Version control and project hosting |
 
-## 5. Implemented Features
+## 6. Implemented Features
 
 ### Event simulation and ingestion
 - Simulated telecommunications events.
@@ -80,9 +111,9 @@ flowchart TD
 - Configured redrive policy.
 - Terraform-managed infrastructure.
 
-## 6. Project Structure
-
+## 7. Project Structure
 ```text
+
 mtn-network-monitoring-platform/
 │
 ├── app/
@@ -97,6 +128,15 @@ mtn-network-monitoring-platform/
 │   └── alerts.jsonl
 │
 ├── docs/
+│   └── screenshots/
+│       ├── 01-fastapi-docs.png
+│       ├── 02-event-ingestion.png
+│       ├── 03-sqs-queues.png
+│       ├── 04-worker-processing.png
+│       ├── 05-sqs-queue-cleared.png
+│       ├── 06-terraform-validation.png
+│       └── 07-pytest-results.png
+│
 ├── simulator/
 ├── scripts/
 ├── tests/
@@ -110,8 +150,7 @@ mtn-network-monitoring-platform/
 ├── .gitignore
 └── README.md
 ```
-
-## 7. Running the Project Locally
+## 8. Running the Project Locally
 
 ### Prerequisites
 
@@ -154,7 +193,7 @@ The health endpoint is:
 
 `http://127.0.0.1:8000/health`
 
-## 8. AWS SQS Configuration
+## 9. AWS SQS Configuration
 
 The project supports Amazon SQS as an alternative to the local queue.
 
@@ -203,7 +242,7 @@ python -c "from app.worker import process_next_sqs_message; print(process_next_s
 
 The current worker processes a message when invoked; it is not a continuously running production worker.
 
-## 9. Running Automated Tests
+## 10. Running Automated Tests
 
 For predictable automated tests, use the local queue backend:
 
@@ -214,7 +253,7 @@ python -m pytest -v
 
 The test suite covers event validation, queue behaviour, event processing, incident detection, and alert generation.
 
-## 10. Current Limitations and Future Improvements
+## 11. Current Limitations and Future Improvements
 
 This project is an educational prototype rather than a production telecommunications monitoring platform.
 
@@ -230,15 +269,9 @@ Potential future improvements include:
 
 **Important:** Alerts are currently generated and stored with a status of `created`. The application does not yet send actual SMS, email, or push notifications.
 
-## 11. Security and Cost Considerations
+## 12. Security and Cost Considerations
 
 - AWS credentials and environment files should never be committed to GitHub.
 - Terraform state files and generated application data are excluded through `.gitignore`.
 - AWS permissions should follow the principle of least privilege.
 - AWS resources may incur charges depending on usage. Review deployed resources and costs, and use `terraform destroy` when you no longer need the infrastructure.
-
-## 12. Project Purpose
-
-This project demonstrates practical cloud engineering concepts, including event-driven architecture, asynchronous processing, AWS SQS, dead-letter queues, Infrastructure as Code, API development, and automated testing.
-
-It was developed as an educational cloud engineering project to demonstrate the design and implementation of a simulated network monitoring and incident alert platform.
